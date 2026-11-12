@@ -28,7 +28,7 @@ sections and items.
 
 #### Acceptance Criteria
 
-1. WHEN the app opens THEN it SHALL list imported packs (title only).
+1. WHEN the app opens THEN it SHALL list imported packs (title and total item count).
 2. WHEN the user opens a pack THEN the app SHALL show its sections with
    headings and each item's text and meaning.
 3. WHEN the app has no packs THEN it SHALL show the core empty state with
