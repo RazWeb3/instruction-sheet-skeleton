@@ -1,33 +1,19 @@
 /* Pack Player specifics. Shared look lives in /theme.css. */
-main > button:first-child { margin-bottom: 0.5rem; }
-.controls { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1rem 0 0.5rem; }
+.back { margin-bottom: var(--s2); }
+.pack-title { margin-top: var(--s3); }
 .items { list-style: none; padding: 0; margin: 0; }
-.item {
-  display: block;
-  width: 100%;
-  text-align: left;
-  margin: 0.35rem 0;
-  padding: 0.7rem 1rem;
-  font-weight: 500;
-  border: 1.5px solid var(--bone-dark);
-  border-left: 8px solid var(--bone-dark);
-  background: #fff;
-  box-shadow: var(--shadow);
-}
-.item:hover { background: var(--bone-light); border-color: var(--ink-soft); }
+.items li { margin: var(--s2) 0; }
+.item { padding: var(--s3) var(--s4); scroll-margin-top: 6rem; }
 .item .text { font-size: 1.1rem; }
 .item .meaning { display: block; color: var(--ink-soft); font-weight: 400; font-size: 0.95rem; }
-/* Currently playing: strong color, thick bar and glow so it reads clearly on video. */
-.item.playing {
-  background: #ffe066;
-  color: #1a1500;
-  border-color: #8a6a00;
-  border-left-color: #1f4e79;
-  box-shadow: 0 0 0 4px rgba(181, 137, 0, 0.45), 0 6px 18px rgba(138, 106, 0, 0.35);
-  transform: scale(1.015);
-}
 .item.playing .text { font-weight: 700; }
 .item.playing .meaning { color: #3d3200; }
-@media (prefers-reduced-motion: no-preference) {
-  .item { transition: transform 0.15s, background 0.15s, box-shadow 0.15s; }
-}
+
+/* Document view: one block per document. */
+.docs { display: grid; gap: var(--s4); }
+.doc-block { padding: var(--s4) var(--s5); scroll-margin-top: 6rem; }
+.doc-heading { display: block; font-size: 1.2rem; font-weight: 700; line-height: 1.3; margin-bottom: var(--s2); }
+.doc-body { display: block; font-weight: 400; white-space: pre-wrap; }
+.doc-play { display: block; margin-top: var(--s3); font-size: var(--fs-small); font-weight: 600; color: var(--accent); }
+.doc-block.playing .doc-play { color: var(--playing-ink); }
+.doc-block.playing .doc-heading { color: var(--playing-ink); }

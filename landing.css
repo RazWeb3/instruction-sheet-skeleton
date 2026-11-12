@@ -1,0 +1,38 @@
+/* Landing page specifics. Shared look lives in /theme.css. */
+.hero { text-align: center; padding: var(--s7) 0 var(--s5); }
+.hero .mark { font-size: 3rem; line-height: 1; margin: 0 0 var(--s3); color: var(--ink-soft); }
+.hero .eyebrow { font-size: var(--fs-small); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 var(--s3); }
+.hero h1 { font-size: 2.75rem; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 var(--s4); }
+.hero .pitch { font-size: 1.3rem; line-height: 1.45; max-width: 34rem; margin: 0 auto var(--s4); }
+.hero .sub { color: var(--ink-soft); max-width: 36rem; margin: 0 auto; }
+.section-title { text-align: center; margin: var(--s7) 0 var(--s5); }
+
+.apps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: var(--s5); }
+.app-card { display: flex; flex-direction: column; border-top: 8px solid var(--accent); padding: var(--s5); }
+.app-card h3 { font-size: 1.4rem; margin: 0 0 var(--s2); color: var(--ink); text-transform: none; letter-spacing: -0.005em; }
+.app-card p { margin: var(--s2) 0 var(--s4); }
+.app-card .links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5); margin: auto 0 0; }
+.app-card .links a:not(.btn) { display: inline-flex; align-items: center; min-height: 2.75rem; }
+.url-note { margin: var(--s4) 0 0; padding-top: var(--s3); border-top: 1px dashed var(--bone-dark); font-size: var(--fs-small); color: var(--ink-soft); }
+.url-note p { margin: 0 0 var(--s2); }
+code { display: block; background: var(--bone); padding: var(--s2) var(--s3); border-radius: 6px; font-family: var(--mono); font-size: 0.82rem; overflow-wrap: anywhere; word-break: break-all; }
+
+/* How it works: four steps, stacked on narrow screens. */
+.steps { list-style: none; counter-reset: step; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: var(--s4); }
+.steps li { counter-increment: step; position: relative; background: var(--bone-light); border: 1px solid var(--bone-dark); border-radius: var(--radius-lg); padding: var(--s4) var(--s4) var(--s4) 4rem; }
+.steps li::before { content: counter(step); position: absolute; left: var(--s4); top: var(--s4); width: 2.25rem; height: 2.25rem; display: grid; place-items: center; font-weight: 700; color: #fff; background: var(--accent); border-radius: 50%; }
+.steps strong { display: block; }
+.steps span { color: var(--ink-soft); font-size: var(--fs-small); }
+
+@media (min-width: 48rem) {
+  .apps { grid-template-columns: repeat(2, 1fr); }
+  .steps { grid-template-columns: repeat(4, 1fr); }
+  .steps li { padding: 4.25rem var(--s4) var(--s4); }
+  .steps li::before { left: var(--s4); top: var(--s4); }
+}
+@media (max-width: 30rem) {
+  .hero { padding-top: var(--s6); }
+  .hero h1 { font-size: 2.1rem; }
+  .hero .pitch { font-size: 1.15rem; }
+  .app-card { padding: var(--s4); }
+}

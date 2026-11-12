@@ -5,12 +5,18 @@ import * as store from '../../core/store.js';
 import { showNotice, renderEmptyState, renderList } from '../../core/ui.js';
 import { buildMemo } from './memo.js';
 import { normalizeDocumentPack, speechFor } from './normalize.js';
+import { splitDocument, isDocumentPack } from './document.js';
 
 const APP = 'player';
 const SAMPLE_URL = '../../samples/player-sample.json';
 const INSTRUCTION_URL = 'https://raw.githubusercontent.com/RazWeb3/instruction-sheet-skeleton/main/instructions/player.md';
 const main = document.getElementById('main');
-const speedSelect = document.getElementById('speed');
+// Speed selector lives in the playback bar; one element is kept so the chosen value survives view changes.
+const speedSelect = h('select', { id: 'speed' });
+for (const [value, label] of [['0.75', '0.75'], ['1', '1.0'], ['1.25', '1.25']]) {
+  speedSelect.append(h('option', { value }, label));
+}
+speedSelect.value = '1';
 
 function h(tag, attrs = {}, ...children) {
   const node = document.createElement(tag);
@@ -82,6 +88,7 @@ function setHighlight(node) {
   if (node) {
     node.classList.add('playing');
     node.setAttribute('aria-current', 'true');
+    node.scrollIntoView?.({ block: 'nearest' }); // keep the playing item clear of the sticky bar
   }
 }
 function speak(pack, item, onEnd) {
@@ -140,21 +147,14 @@ async function showList() {
   );
 }
 
-async function showDetail(id) {
-  stopPlayback();
-  const entry = await store.get(APP, id);
-  if (!entry) return showList();
-  const pack = entry.payload;
-  main.replaceChildren();
-  flushNotice();
-
-  const rows = [];
+// Listening pack: headed groups of item rows.
+function renderListening(pack, rows) {
   const body = h('div', {});
   for (const section of pack.sections) {
     body.append(h('h3', {}, section.heading));
     const ul = h('ul', { class: 'items' });
     for (const item of section.items) {
-      const btn = h('button', { type: 'button', class: 'item' }, h('span', { class: 'text' }, item.text));
+      const btn = h('button', { type: 'button', class: 'item playable' }, h('span', { class: 'text' }, item.text));
       if (item.meaning) btn.append(h('span', { class: 'meaning' }, item.meaning));
       btn.addEventListener('click', () => playOne(pack, item, btn));
       rows.push({ item, node: btn });
@@ -162,14 +162,41 @@ async function showDetail(id) {
     }
     body.append(ul);
   }
-
-  const back = h('button', { type: 'button' }, 'Back');
+  return body;
+}
+// Document pack: one block per document; heading derived from a short first line, line breaks kept.
+function renderDocuments(pack, rows) {
+  const body = h('div', { class: 'docs' });
+  for (const section of pack.sections) {
+    for (const item of section.items) {
+      const { heading, body: text } = splitDocument(item.text);
+      const block = h('button', { type: 'button', class: 'doc-block playable' });
+      if (heading) block.append(h('span', { class: 'doc-heading' }, heading));
+      if (text) block.append(h('span', { class: 'doc-body' }, text));
+      block.append(h('span', { class: 'doc-play', 'aria-hidden': 'true' }, '\u25B6 Tap to play'));
+      block.addEventListener('click', () => playOne(pack, item, block));
+      rows.push({ item, node: block });
+      body.append(block);
+    }
+  }
+  return body;
+}
+async function showDetail(id) {
+  stopPlayback();
+  const entry = await store.get(APP, id);
+  if (!entry) return showList();
+  const pack = entry.payload;
+  main.replaceChildren();
+  flushNotice();
+  const rows = [];
+  const body = isDocumentPack(pack) ? renderDocuments(pack, rows) : renderListening(pack, rows);
+  const back = h('button', { type: 'button', class: 'back' }, 'Back');
   back.addEventListener('click', showList);
-  const play = h('button', { type: 'button' }, 'Play all');
+  const play = h('button', { type: 'button', class: 'btn-primary' }, 'Play all');
   play.addEventListener('click', () => playAll(pack, rows));
   const stop = h('button', { type: 'button' }, 'Stop');
   stop.addEventListener('click', stopPlayback);
-
+  const speedLabel = h('label', {}, 'Speed ', speedSelect);
   const memoOut = h('div', {});
   const exportBtn = h('button', { type: 'button' }, 'Export learning memo');
   exportBtn.addEventListener('click', () => {
@@ -186,16 +213,14 @@ async function showDetail(id) {
     });
     memoOut.replaceChildren(area, copy);
   });
-
   main.append(
     back,
-    h('h2', {}, pack.title),
-    h('div', { class: 'controls' }, play, stop),
+    h('h2', { class: 'pack-title' }, pack.title),
+    h('div', { class: 'playbar', role: 'group', 'aria-label': 'Playback' }, play, stop, speedLabel),
     body,
-    h('footer', {}, exportBtn, memoOut),
+    h('section', { class: 'memo-panel' }, exportBtn, memoOut),
   );
 }
-
 // ---- Start ----
 async function start() {
   const params = new URLSearchParams(location.search);

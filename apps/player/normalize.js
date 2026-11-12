@@ -8,6 +8,7 @@ export function normalizeDocumentPack(pack) {
   return {
     type: 'listening-pack',
     schemaVersion: 1,
+    source: 'document', // selects the document reading view; packs without it render as listening packs
     title: pack.title,
     lang: pack.language,
     sections: pack.documents.map((doc, i) => {
