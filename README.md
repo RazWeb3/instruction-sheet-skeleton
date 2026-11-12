@@ -10,6 +10,10 @@ A lean, local-only skeleton for **AI instruction-sheet apps** — built with Kir
 
 No API keys. No server. No AI/LLM API inside the app — generation always happens outside the app, in the user's own AI chat.
 
+## Import rule
+
+Re-importing data with the same title **replaces** the existing entry — there is at most one entry per title in each app.
+
 ## What's in this repo
 
 - `core/` — the skeleton: import-link codec, schema validation, local storage, shared UI parts. Nothing else.

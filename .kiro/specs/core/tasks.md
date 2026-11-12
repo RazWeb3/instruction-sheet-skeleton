@@ -23,9 +23,11 @@
   - [ ] 3.1 Implement `core/store.js` (IndexedDB, thin Promise wrapper,
     stores `player` / `board`; save / list / get / remove)
     - _Requirements: 3.1, 3.2, 3.3, 3.4_
-  - [ ] 3.2 Decide and record the re-import rule (same title: replace or
+  - [x] 3.2 Decide and record the re-import rule (same title: replace or
     duplicate) in the repo README; keep it the same in both apps
     - _Requirements: 3.1_
+    - Decided 2026-11-12: the same title REPLACES the existing entry, and
+      the store key is derived from the title only
 
 - [ ] 4. Common UI
   - [ ] 4.1 Implement `core/ui.js` (import notice, empty state with

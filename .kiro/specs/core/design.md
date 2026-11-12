@@ -31,14 +31,13 @@ and validation can be unit-tested in Node with `node --test`.
 ### `core/store.js`
 
 - Thin Promise wrapper over IndexedDB. One database, one object store per
-  app (`player`, `board`), keyed by an id derived from the payload
-  (title + import time; collisions overwrite only the same title's latest
-  import — see open point below).
+  app (`player`, `board`), keyed by an id derived from the payload's
+  `title` only.
 - Operations: `save(app, payload)`, `list(app)`, `get(app, id)`,
   `remove(app, id)`. All return Promises.
-- Open point for the implementer to decide and record: whether re-importing
-  the same title creates a second entry or replaces the old one. Pick one,
-  write it in the README, and keep it consistent in both apps.
+- Re-import rule (decided 2026-11-12, recorded in the repo README):
+  re-importing the same title REPLACES the existing entry. There is at
+  most one entry per title per app; keep this consistent in both apps.
 
 ### `core/ui.js`
 
