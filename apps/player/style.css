@@ -1,6 +1,33 @@
 /* Pack Player specifics. Shared look lives in /theme.css. */
-.controls { display: flex; gap: 0.5rem; margin: 0.5rem 0; }
-.items { list-style: none; padding: 0; }
-.item { display: block; width: 100%; text-align: left; margin: 0.2rem 0; border: 1px solid var(--bone-dark); background: #fff; }
-.item .meaning { color: var(--ink-soft); margin-left: 0.5rem; }
-.item.playing { background: #fff3bf; border-color: #b58900; outline: 2px solid #b58900; }
+main > button:first-child { margin-bottom: 0.5rem; }
+.controls { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1rem 0 0.5rem; }
+.items { list-style: none; padding: 0; margin: 0; }
+.item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin: 0.35rem 0;
+  padding: 0.7rem 1rem;
+  font-weight: 500;
+  border: 1.5px solid var(--bone-dark);
+  border-left: 8px solid var(--bone-dark);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.item:hover { background: var(--bone-light); border-color: var(--ink-soft); }
+.item .text { font-size: 1.1rem; }
+.item .meaning { display: block; color: var(--ink-soft); font-weight: 400; font-size: 0.95rem; }
+/* Currently playing: strong color, thick bar and glow so it reads clearly on video. */
+.item.playing {
+  background: #ffe066;
+  color: #1a1500;
+  border-color: #8a6a00;
+  border-left-color: #1f4e79;
+  box-shadow: 0 0 0 4px rgba(181, 137, 0, 0.45), 0 6px 18px rgba(138, 106, 0, 0.35);
+  transform: scale(1.015);
+}
+.item.playing .text { font-weight: 700; }
+.item.playing .meaning { color: #3d3200; }
+@media (prefers-reduced-motion: no-preference) {
+  .item { transition: transform 0.15s, background 0.15s, box-shadow 0.15s; }
+}
