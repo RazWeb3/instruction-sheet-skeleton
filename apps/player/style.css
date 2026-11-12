@@ -1,18 +1,6 @@
-body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 0 auto; padding: 1rem; line-height: 1.5; }
-header { display: flex; justify-content: space-between; align-items: center; }
-h1 { font-size: 1.4rem; }
-button { font: inherit; padding: 0.4rem 0.8rem; cursor: pointer; }
-.notice { padding: 0.5rem 1rem; border-radius: 4px; margin: 0.5rem 0; }
-.notice p { margin: 0.2rem 0; }
-.notice-success { background: #e6f4ea; color: #14501f; }
-.notice-error { background: #fdecea; color: #7a1c14; }
-.entry-list { list-style: none; padding: 0; }
-.entry-list li { display: flex; gap: 0.5rem; margin: 0.4rem 0; }
-.entry-open { flex: 1; text-align: left; }
+/* Pack Player specifics. Shared look lives in /theme.css. */
 .controls { display: flex; gap: 0.5rem; margin: 0.5rem 0; }
 .items { list-style: none; padding: 0; }
-.item { display: block; width: 100%; text-align: left; margin: 0.2rem 0; border: 1px solid #ccc; background: #fff; }
-.item .meaning { color: #555; margin-left: 0.5rem; }
+.item { display: block; width: 100%; text-align: left; margin: 0.2rem 0; border: 1px solid var(--bone-dark); background: #fff; }
+.item .meaning { color: var(--ink-soft); margin-left: 0.5rem; }
 .item.playing { background: #fff3bf; border-color: #b58900; outline: 2px solid #b58900; }
-footer { margin-top: 1.5rem; }
-textarea { width: 100%; min-height: 8rem; font-family: monospace; }
