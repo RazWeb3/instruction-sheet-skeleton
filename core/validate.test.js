@@ -82,3 +82,40 @@ test('reports multiple reasons at once', () => {
   assert.equal(r.ok, false);
   assert.ok(r.reasons.length >= 3);
 });
+
+const doc = () => ({
+  type: 'document',
+  schemaVersion: 1,
+  title: 'Sokqa pack',
+  language: 'en-US',
+  packMode: 'append',
+  globalTags: ['a'],
+  documents: [
+    { id: 'd1', text: 'Hello', tags: ['x'] },
+    { id: 'd2', text: 'Hi', tts: { text: 'Hi there', textLanguage: 'en-GB', audioUrl: 'u', audioPath: 'p' } },
+  ],
+});
+
+test('document: accepts a valid Sokqa pack (extra fields ignored)', () => {
+  const r = validatePayload(doc());
+  assert.equal(r.ok, true);
+  assert.equal(r.type, 'document');
+});
+
+test('document: required fields with named reasons', () => {
+  const noLang = doc(); delete noLang.language;
+  fails(noLang, /language is required/);
+  fails({ ...doc(), title: '' }, /title is required/);
+  fails({ ...doc(), documents: [] }, /documents is required \(non-empty array\)/);
+  fails({ ...doc(), documents: 'x' }, /documents is required/);
+  fails({ ...doc(), documents: [{ text: 'a' }] }, /documents\[0\]\.id is required/);
+  fails({ ...doc(), documents: [{ id: 'a' }] }, /documents\[0\]\.text is required/);
+  fails({ ...doc(), documents: [{ id: 'a', text: '  ' }] }, /documents\[0\]\.text is required/);
+  fails({ ...doc(), documents: ['x'] }, /documents\[0\] must be an object/);
+});
+
+test('document: tts shape is checked when present', () => {
+  fails({ ...doc(), documents: [{ id: 'a', text: 'b', tts: 'x' }] }, /tts must be an object/);
+  fails({ ...doc(), documents: [{ id: 'a', text: 'b', tts: { text: 1 } }] }, /tts\.text must be a string/);
+  fails({ ...doc(), schemaVersion: 2 }, /unsupported schemaVersion/);
+});

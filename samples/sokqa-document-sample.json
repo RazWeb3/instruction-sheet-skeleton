@@ -1,0 +1,11 @@
+{
+  "type": "document",
+  "schemaVersion": 1,
+  "title": "Sokqa Cafe Phrases",
+  "language": "en-US",
+  "documents": [
+    { "id": "doc-1", "text": "Good morning. Could I have a coffee, please?" },
+    { "id": "doc-2", "text": "Could I have a latte? (medium)", "tts": { "text": "Could I have a medium latte, please?" } },
+    { "id": "doc-3", "text": "Merci beaucoup", "tts": { "text": "Merci beaucoup.", "textLanguage": "fr-FR", "audioUrl": "https://example.com/merci.mp3" } }
+  ]
+}

@@ -4,6 +4,7 @@ import { validatePayload } from '../../core/validate.js';
 import * as store from '../../core/store.js';
 import { showNotice, renderEmptyState, renderList } from '../../core/ui.js';
 import { buildMemo } from './memo.js';
+import { normalizeDocumentPack, speechFor } from './normalize.js';
 
 const APP = 'player';
 const SAMPLE_URL = '../../samples/player-sample.json';
@@ -27,9 +28,13 @@ async function importData(data) {
     const obj = await decodePayload(data);
     const result = validatePayload(obj);
     if (!result.ok) throw new Error(result.reasons.join(' / '));
-    if (result.type !== 'listening-pack') throw new Error(`This link is for "${result.type}", not a listening pack.`);
-    await store.save(APP, result.data);
-    return { ok: true, title: result.data.title };
+    if (result.type !== 'listening-pack' && result.type !== 'document') {
+      throw new Error(`This link is for "${result.type}", not a listening pack.`);
+    }
+    // Sokqa document packs are stored in the player's own model.
+    const pack = result.type === 'document' ? normalizeDocumentPack(result.data) : result.data;
+    await store.save(APP, pack);
+    return { ok: true, title: pack.title };
   } catch (err) {
     return { ok: false, reasons: err.reason ? [err.reason] : [err.message] };
   }
@@ -79,20 +84,21 @@ function setHighlight(node) {
     node.setAttribute('aria-current', 'true');
   }
 }
-function speak(pack, text, onEnd) {
+function speak(pack, item, onEnd) {
+  const { text, lang } = speechFor(pack, item);
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = pack.lang || 'en-US';
+  u.lang = lang;
   u.rate = speed();
   u.onend = onEnd;
   u.onerror = onEnd;
   speechSynthesis.speak(u);
 }
-function playOne(pack, text, node) {
+function playOne(pack, item, node) {
   if (!('speechSynthesis' in window)) return showNotice('This browser has no speech synthesis.', 'error', main);
   stopPlayback();
   const token = playToken;
   setHighlight(node);
-  speak(pack, text, () => {
+  speak(pack, item, () => {
     if (token === playToken) setHighlight(null);
   });
 }
@@ -104,9 +110,9 @@ function playAll(pack, rows) {
   const next = () => {
     if (token !== playToken) return;
     if (i >= rows.length) return setHighlight(null);
-    const { text, node } = rows[i++];
+    const { item, node } = rows[i++];
     setHighlight(node);
-    speak(pack, text, next);
+    speak(pack, item, next);
   };
   next();
 }
@@ -150,8 +156,8 @@ async function showDetail(id) {
     for (const item of section.items) {
       const btn = h('button', { type: 'button', class: 'item' }, h('span', { class: 'text' }, item.text));
       if (item.meaning) btn.append(h('span', { class: 'meaning' }, item.meaning));
-      btn.addEventListener('click', () => playOne(pack, item.text, btn));
-      rows.push({ text: item.text, node: btn });
+      btn.addEventListener('click', () => playOne(pack, item, btn));
+      rows.push({ item, node: btn });
       ul.append(h('li', {}, btn));
     }
     body.append(ul);

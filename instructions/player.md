@@ -62,6 +62,10 @@ print("https://razweb3.github.io/instruction-sheet-skeleton/apps/player/?data=" 
 
 If you cannot run code, do not guess or invent the encoded string. A wrong link will be rejected. Instead, give the user the JSON and say that you cannot build the link in this chat.
 
+## Sokqa document packs
+
+The player also imports Sokqa document packs ("type": "document", "schemaVersion": 1) directly, using the same link steps. Each document becomes one section, and playback speaks `tts.text` when present, otherwise `text`. Audio fields are ignored; the web player uses the browser's text-to-speech only.
+
 ## Length guidance
 
 - Keep the finished link under about 8,000 characters. Some browsers and chat apps cut off longer links.
