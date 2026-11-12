@@ -1,34 +1,46 @@
 /* Shared skeleton theme: used by the landing page, Pack Player and Memory Board. CSS only. */
 :root {
   --bone: #f6f2e8;
+  --bone-light: #fbf9f3;
   --bone-dark: #d8d2c4;
-  --ink: #26241f;
-  --ink-soft: #5a564c;
+  --ink: #1f1d19;
+  --ink-soft: #4f4b40;
   --link: #1f4e79;
+  --accent: #1f4e79;
+  --accent-dark: #163a5b;
   --focus: #b58900;
-  --radius: 6px;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(38, 36, 31, 0.08), 0 4px 14px rgba(38, 36, 31, 0.06);
+  --space: 1rem;
 }
 * { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
 body {
-  font-family: system-ui, sans-serif;
-  max-width: 40rem;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  max-width: 44rem;
   margin: 0 auto;
-  padding: 1rem;
-  line-height: 1.5;
+  padding: 1.5rem 1.25rem 3rem;
+  line-height: 1.6;
+  font-size: 1.0625rem;
   color: var(--ink);
   background: var(--bone);
+  overflow-wrap: anywhere;
 }
-a { color: var(--link); }
+a { color: var(--link); text-underline-offset: 0.2em; }
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  padding-bottom: 0.8rem;
-  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  padding-bottom: 1.1rem;
+  margin-bottom: 2.25rem;
   border-bottom: 2px solid var(--bone-dark);
   position: relative;
 }
+header label { font-weight: 600; color: var(--ink-soft); }
+.brand { display: block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; }
+.brand:hover { text-decoration: underline; }
 /* Bone divider on the header rule, drawn with an inline SVG data URI. */
 header::after {
   content: "";
@@ -40,27 +52,52 @@ header::after {
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='24' viewBox='0 0 64 24'%3E%3Cg fill='%23d8d2c4'%3E%3Ccircle cx='6' cy='6' r='4'/%3E%3Ccircle cx='6' cy='18' r='4'/%3E%3Ccircle cx='58' cy='6' r='4'/%3E%3Ccircle cx='58' cy='18' r='4'/%3E%3Crect x='6' y='8' width='52' height='8' rx='4'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
   pointer-events: none;
 }
-h1 { font-size: 1.4rem; margin: 0.4rem 0; letter-spacing: 0.01em; }
+h1 { font-size: 1.75rem; line-height: 1.2; margin: 0.15rem 0 0; letter-spacing: -0.01em; }
 h1::before { content: "\2620\FE0E\00a0"; color: var(--ink-soft); }
+h2 { font-size: 1.35rem; line-height: 1.3; margin: 1.5rem 0 0.75rem; letter-spacing: -0.005em; }
+h3 { font-size: 1.05rem; margin: 1.6rem 0 0.4rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; }
 button {
   font: inherit;
-  padding: 0.4rem 0.8rem;
+  font-weight: 600;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.1rem;
   cursor: pointer;
   color: var(--ink);
   background: #fff;
-  border: 1px solid var(--ink-soft);
+  border: 1.5px solid var(--ink-soft);
   border-radius: var(--radius);
+  transition: background 0.12s, border-color 0.12s;
 }
 button:hover { background: var(--bone-dark); }
+/* Primary actions: styled by position/role so the markup and JS stay untouched. */
+.empty-state button,
+.controls button:first-child,
+.entry-open {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.empty-state button:hover,
+.controls button:first-child:hover,
+.entry-open:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+.entry-delete { color: #7a1c14; border-color: #c9a39e; background: #fff; }
+.entry-delete:hover { background: #fdecea; }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-select { font: inherit; padding: 0.25rem; border-radius: var(--radius); border: 1px solid var(--ink-soft); }
-textarea { width: 100%; min-height: 8rem; font-family: monospace; border: 1px solid var(--ink-soft); border-radius: var(--radius); }
-.notice { padding: 0.5rem 1rem; border-radius: var(--radius); margin: 0.5rem 0; border-left: 6px solid; }
+select { font: inherit; min-height: 2.5rem; padding: 0.3rem 0.5rem; border-radius: var(--radius); border: 1.5px solid var(--ink-soft); background: #fff; }
+textarea { display: block; width: 100%; min-height: 9rem; margin: 0.75rem 0 0.5rem; padding: 0.7rem; font-family: ui-monospace, Consolas, monospace; font-size: 0.95rem; border: 1.5px solid var(--bone-dark); border-radius: var(--radius); background: #fff; }
+.notice { padding: 0.7rem 1.1rem; border-radius: var(--radius); margin: 0 0 1.25rem; border-left: 6px solid; }
 .notice p { margin: 0.2rem 0; }
 .notice-success { background: #e6f4ea; color: #14501f; border-color: #14501f; }
 .notice-error { background: #fdecea; color: #7a1c14; border-color: #7a1c14; }
-.empty-state { border: 2px dashed var(--bone-dark); border-radius: var(--radius); padding: 0.5rem 1rem; margin: 1rem 0; background: #fff; }
-.entry-list { list-style: none; padding: 0; }
-.entry-list li { display: flex; gap: 0.5rem; margin: 0.4rem 0; }
-.entry-open { flex: 1; text-align: left; }
-footer { margin-top: 1.5rem; padding-top: 0.8rem; border-top: 2px solid var(--bone-dark); color: var(--ink-soft); }
+.empty-state { border: 2px dashed var(--bone-dark); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin: 1rem 0; background: var(--bone-light); }
+.empty-state p { margin: 0 0 0.8rem; }
+.entry-list { list-style: none; padding: 0; margin: 0; }
+.entry-list li { display: flex; gap: 0.6rem; margin: 0.6rem 0; }
+.entry-open { flex: 1; min-width: 0; text-align: left; font-size: 1.05rem; box-shadow: var(--shadow); }
+.entry-count { font-weight: 400; opacity: 0.85; }
+footer { margin-top: 2.5rem; padding-top: 1.1rem; border-top: 2px solid var(--bone-dark); color: var(--ink-soft); }
+@media (max-width: 30rem) {
+  body { padding: 1rem 1rem 2.5rem; font-size: 1rem; }
+  h1 { font-size: 1.5rem; }
+  header { margin-bottom: 1.75rem; }
+}

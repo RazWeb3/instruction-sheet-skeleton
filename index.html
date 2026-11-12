@@ -7,41 +7,59 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
   <link rel="stylesheet" href="theme.css">
   <style>
-    .apps { list-style: none; padding: 0; display: grid; gap: 1rem; }
-    .app-card { background: #fff; border: 1px solid var(--bone-dark); border-left: 6px solid var(--bone-dark); border-radius: var(--radius); padding: 0.6rem 1rem; }
-    .app-card h2 { font-size: 1.15rem; margin: 0.2rem 0; }
-    .app-card p { margin: 0.3rem 0; }
-    .links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; }
-    code { background: var(--bone-dark); padding: 0 0.3rem; border-radius: 3px; }
+    .hero { text-align: center; padding: 2.5rem 0 1rem; }
+    .hero .eyebrow { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 0.75rem; }
+    .hero h1 { font-size: 2.75rem; line-height: 1.1; margin: 0 0 1rem; }
+    .hero h1::before { display: block; content: "\2620\FE0E"; font-size: 3rem; margin-bottom: 0.4rem; }
+    .hero .pitch { font-size: 1.3rem; line-height: 1.45; max-width: 32rem; margin: 0 auto 1rem; }
+    .hero .sub { color: var(--ink-soft); max-width: 34rem; margin: 0 auto; }
+    .section-title { text-align: center; margin: 3rem 0 1.25rem; }
+    .apps { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.5rem; }
+    .app-card { background: #fff; border: 1px solid var(--bone-dark); border-top: 8px solid var(--accent); border-radius: 14px; padding: 1.5rem 1.5rem 1.25rem; box-shadow: var(--shadow); }
+    .app-card h3 { font-size: 1.4rem; margin: 0 0 0.4rem; color: var(--ink); text-transform: none; letter-spacing: -0.005em; }
+    .app-card p { margin: 0.4rem 0 1rem; }
+    .cta { display: inline-block; padding: 0.7rem 1.4rem; font-weight: 600; color: #fff; background: var(--accent); border-radius: var(--radius); text-decoration: none; box-shadow: var(--shadow); }
+    .cta:hover { background: var(--accent-dark); }
+    .links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin: 0; }
+    .how { margin: 1.25rem 0 0; padding-top: 1rem; border-top: 1px dashed var(--bone-dark); font-size: 0.9rem; color: var(--ink-soft); }
+    .how p { margin: 0 0 0.4rem; }
+    code { display: block; background: var(--bone); padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.85rem; overflow-wrap: anywhere; }
+    @media (max-width: 30rem) { .hero h1 { font-size: 2.1rem; } .hero .pitch { font-size: 1.15rem; } .app-card { padding: 1.25rem 1rem 1rem; } }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Instruction-Sheet Skeleton</h1>
-  </header>
   <main>
-    <p>A lean, local-only skeleton for AI instruction-sheet apps. A public instruction sheet tells your own AI chat how to turn a topic into JSON. The AI hands back an import link, and the app stores the data in your browser. No API keys, no server, no AI inside the app.</p>
-    <p>Built with Kiro for Kiroween 2026 (Skeleton Crew).</p>
-
-    <h2>Apps</h2>
+    <section class="hero">
+      <p class="eyebrow">Built with Kiro for Kiroween 2026 (Skeleton Crew)</p>
+      <h1>Instruction-Sheet Skeleton</h1>
+      <p class="pitch">Hand a public instruction sheet to your own AI chat. Get an import link back. Your data stays in your browser.</p>
+      <p class="sub">A lean, local-only skeleton for AI instruction-sheet apps. No API keys, no server, no AI inside the app.</p>
+    </section>
+    <h2 class="section-title">Pick an app</h2>
     <ul class="apps">
       <li class="app-card">
-        <h2>Pack Player</h2>
+        <h3>Pack Player</h3>
         <p>Import a listening pack and play it back with the browser's built-in text-to-speech.</p>
         <p class="links">
-          <a href="apps/player/">Open the app</a>
+          <a class="cta" href="apps/player/">Open the app</a>
           <a href="https://github.com/RazWeb3/instruction-sheet-skeleton/blob/main/instructions/player.md">Instruction sheet</a>
         </p>
-        <p>Paste this URL into your AI chat: <code>https://raw.githubusercontent.com/RazWeb3/instruction-sheet-skeleton/main/instructions/player.md</code></p>
+        <div class="how">
+          <p>Paste this URL into your AI chat:</p>
+          <code>https://raw.githubusercontent.com/RazWeb3/instruction-sheet-skeleton/main/instructions/player.md</code>
+        </div>
       </li>
       <li class="app-card">
-        <h2>Memory Board</h2>
+        <h3>Memory Board</h3>
         <p>Import a memory board and browse it as cards, filtered by tag.</p>
         <p class="links">
-          <a href="apps/board/">Open the app</a>
+          <a class="cta" href="apps/board/">Open the app</a>
           <a href="https://github.com/RazWeb3/instruction-sheet-skeleton/blob/main/instructions/board.md">Instruction sheet</a>
         </p>
-        <p>Paste this URL into your AI chat: <code>https://raw.githubusercontent.com/RazWeb3/instruction-sheet-skeleton/main/instructions/board.md</code></p>
+        <div class="how">
+          <p>Paste this URL into your AI chat:</p>
+          <code>https://raw.githubusercontent.com/RazWeb3/instruction-sheet-skeleton/main/instructions/board.md</code>
+        </div>
       </li>
     </ul>
   </main>
