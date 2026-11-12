@@ -1,0 +1,18 @@
+{
+  "type": "listening-pack",
+  "schemaVersion": 1,
+  "title": "Fruits",
+  "lang": "en-US",
+  "sections": [
+    {
+      "heading": "Common fruits",
+      "items": [
+        { "text": "apple", "meaning": "りんご", "note": "an apple a day" },
+        { "text": "banana", "meaning": "バナナ" },
+        { "text": "orange", "meaning": "オレンジ" },
+        { "text": "grape", "meaning": "ぶどう" },
+        { "text": "strawberry", "meaning": "いちご" }
+      ]
+    }
+  ]
+}

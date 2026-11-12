@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Run tests on save",
+      "trigger": "PostFileSave",
+      "action": {
+        "type": "command",
+        "command": "node --test"
+      },
+      "description": "Runs node --test when a core file is saved.",
+      "matcher": "core/.*\\.js",
+      "enabled": true
+    }
+  ]
+}
