@@ -45,6 +45,11 @@ export function renderEmptyState(app, onImportSample, instructionUrl) {
   return box;
 }
 
+/** Total items across all sections of a listening-pack payload; null for other payload types. */
+function totalItems(payload) {
+  if (!Array.isArray(payload?.sections)) return null;
+  return payload.sections.reduce((n, s) => n + (Array.isArray(s.items) ? s.items.length : 0), 0);
+}
 /**
  * List of saved entries (as returned by store.list). onOpen(entry) navigates to the
  * detail view; onDelete(entry) removes it. Returns the element; caller mounts it.
@@ -54,6 +59,8 @@ export function renderList(entries, onOpen, onDelete) {
   for (const entry of entries) {
     const title = entry.payload.title;
     const open = el('button', { type: 'button', class: 'entry-open' }, title);
+    const count = totalItems(entry.payload);
+    if (count !== null) open.append(el('span', { class: 'entry-count' }, `  (${count} ${count === 1 ? 'item' : 'items'})`));
     open.addEventListener('click', () => onOpen(entry));
     const del = el('button', { type: 'button', class: 'entry-delete', 'aria-label': `Delete ${title}` }, 'Delete');
     del.addEventListener('click', () => onDelete(entry));
