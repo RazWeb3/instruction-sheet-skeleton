@@ -44,9 +44,12 @@ and validation can be unit-tested in Node with `node --test`.
 ### `core/ui.js`
 
 - `showNotice(message, kind)` — import result banner (success / error).
-- `renderEmptyState(app, sampleLink)` — instruction-sheet hint + "import
-  sample" button. The sample link is built with `encodePayload` from the
-  JSON in `samples/`.
+- `renderEmptyState(app, onImportSample, instructionUrl?)` — instruction-
+  sheet hint + "import sample" button. (Signature decided 2026-11-12
+  during implementation: importing a sample must run the whole decode →
+  validate → save flow, so the UI takes a callback instead of a raw link.
+  The app builds the sample link with `encodePayload` from the JSON in
+  `samples/` and passes the import handler in.)
 - `renderList(entries, onOpen, onDelete)` — list → detail navigation.
 
 ## Data flow (import)
