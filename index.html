@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Instruction-Sheet Skeleton</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    .apps { list-style: none; padding: 0; display: grid; gap: 1rem; }
+    .app-card { background: #fff; border: 1px solid var(--bone-dark); border-left: 6px solid var(--bone-dark); border-radius: var(--radius); padding: 0.6rem 1rem; }
+    .app-card h2 { font-size: 1.15rem; margin: 0.2rem 0; }
+    .app-card p { margin: 0.3rem 0; }
+    .links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; }
+    code { background: var(--bone-dark); padding: 0 0.3rem; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Instruction-Sheet Skeleton</h1>
+  </header>
+  <main>
+    <p>A lean, local-only skeleton for AI instruction-sheet apps. A public instruction sheet tells your own AI chat how to turn a topic into JSON. The AI hands back an import link, and the app stores the data in your browser. No API keys, no server, no AI inside the app.</p>
+    <p>Built with Kiro for Kiroween 2026 (Skeleton Crew).</p>
+
+    <h2>Apps</h2>
+    <ul class="apps">
+      <li class="app-card">
+        <h2>Pack Player</h2>
+        <p>Import a listening pack and play it back with the browser's built-in text-to-speech.</p>
+        <p class="links">
+          <a href="apps/player/">Open the app</a>
+          <a href="https://github.com/RazWeb3/instruction-sheet-skeleton/blob/main/instructions/player.md">Instruction sheet</a>
+        </p>
+        <p>Paste this URL into your AI chat: <code>https://raw.githubusercontent.com/RazWeb3/instruction-sheet-skeleton/main/instructions/player.md</code></p>
+      </li>
+      <li class="app-card">
+        <h2>Memory Board</h2>
+        <p>Import a memory board and browse it as cards, filtered by tag.</p>
+        <p class="links">
+          <a href="apps/board/">Open the app</a>
+          <a href="https://github.com/RazWeb3/instruction-sheet-skeleton/blob/main/instructions/board.md">Instruction sheet</a>
+        </p>
+        <p>Paste this URL into your AI chat: <code>https://raw.githubusercontent.com/RazWeb3/instruction-sheet-skeleton/main/instructions/board.md</code></p>
+      </li>
+    </ul>
+  </main>
+  <footer>
+    <a href="https://github.com/RazWeb3/instruction-sheet-skeleton">Source on GitHub</a> · MIT License
+  </footer>
+</body>
+</html>
