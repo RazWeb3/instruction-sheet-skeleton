@@ -6,65 +6,63 @@
   <title>Instruction-Sheet Skeleton</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
   <link rel="stylesheet" href="theme.css">
-  <style>
-    .hero { text-align: center; padding: 2.5rem 0 1rem; }
-    .hero .eyebrow { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 0.75rem; }
-    .hero h1 { font-size: 2.75rem; line-height: 1.1; margin: 0 0 1rem; }
-    .hero h1::before { display: block; content: "\2620\FE0E"; font-size: 3rem; margin-bottom: 0.4rem; }
-    .hero .pitch { font-size: 1.3rem; line-height: 1.45; max-width: 32rem; margin: 0 auto 1rem; }
-    .hero .sub { color: var(--ink-soft); max-width: 34rem; margin: 0 auto; }
-    .section-title { text-align: center; margin: 3rem 0 1.25rem; }
-    .apps { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.5rem; }
-    .app-card { background: #fff; border: 1px solid var(--bone-dark); border-top: 8px solid var(--accent); border-radius: 14px; padding: 1.5rem 1.5rem 1.25rem; box-shadow: var(--shadow); }
-    .app-card h3 { font-size: 1.4rem; margin: 0 0 0.4rem; color: var(--ink); text-transform: none; letter-spacing: -0.005em; }
-    .app-card p { margin: 0.4rem 0 1rem; }
-    .cta { display: inline-block; padding: 0.7rem 1.4rem; font-weight: 600; color: #fff; background: var(--accent); border-radius: var(--radius); text-decoration: none; box-shadow: var(--shadow); }
-    .cta:hover { background: var(--accent-dark); }
-    .links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin: 0; }
-    .how { margin: 1.25rem 0 0; padding-top: 1rem; border-top: 1px dashed var(--bone-dark); font-size: 0.9rem; color: var(--ink-soft); }
-    .how p { margin: 0 0 0.4rem; }
-    code { display: block; background: var(--bone); padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.85rem; overflow-wrap: anywhere; }
-    @media (max-width: 30rem) { .hero h1 { font-size: 2.1rem; } .hero .pitch { font-size: 1.15rem; } .app-card { padding: 1.25rem 1rem 1rem; } }
-  </style>
+  <link rel="stylesheet" href="landing.css">
 </head>
-<body>
-  <main>
-    <section class="hero">
-      <p class="eyebrow">Built with Kiro for Kiroween 2026 (Skeleton Crew)</p>
-      <h1>Instruction-Sheet Skeleton</h1>
-      <p class="pitch">Hand a public instruction sheet to your own AI chat. Get an import link back. Your data stays in your browser.</p>
-      <p class="sub">A lean, local-only skeleton for AI instruction-sheet apps. No API keys, no server, no AI inside the app.</p>
-    </section>
-    <h2 class="section-title">Pick an app</h2>
-    <ul class="apps">
-      <li class="app-card">
-        <h3>Pack Player</h3>
-        <p>Import a listening pack and play it back with the browser's built-in text-to-speech.</p>
-        <p class="links">
-          <a class="cta" href="apps/player/">Open the app</a>
-          <a href="https://github.com/RazWeb3/instruction-sheet-skeleton/blob/main/instructions/player.md">Instruction sheet</a>
-        </p>
-        <div class="how">
-          <p>Paste this URL into your AI chat:</p>
-          <code>https://raw.githubusercontent.com/RazWeb3/instruction-sheet-skeleton/main/instructions/player.md</code>
-        </div>
-      </li>
-      <li class="app-card">
-        <h3>Memory Board</h3>
-        <p>Import a memory board and browse it as cards, filtered by tag.</p>
-        <p class="links">
-          <a class="cta" href="apps/board/">Open the app</a>
-          <a href="https://github.com/RazWeb3/instruction-sheet-skeleton/blob/main/instructions/board.md">Instruction sheet</a>
-        </p>
-        <div class="how">
-          <p>Paste this URL into your AI chat:</p>
-          <code>https://raw.githubusercontent.com/RazWeb3/instruction-sheet-skeleton/main/instructions/board.md</code>
-        </div>
-      </li>
-    </ul>
-  </main>
-  <footer>
-    <a href="https://github.com/RazWeb3/instruction-sheet-skeleton">Source on GitHub</a> · MIT License
+<body class="wide">
+  <header class="topbar">
+    <div class="shell"><a class="brand" href="./">Instruction-Sheet Skeleton</a></div>
+  </header>
+  <div class="shell">
+    <main class="content">
+      <section class="hero">
+        <p class="mark" aria-hidden="true">&#9760;&#xFE0E;</p>
+        <p class="eyebrow">Built with Kiro for Kiroween 2026 (Skeleton Crew)</p>
+        <h1>Instruction-Sheet Skeleton</h1>
+        <p class="pitch">Hand a public instruction sheet to your own AI chat. Get an import link back. Your data stays in your browser.</p>
+        <p class="sub">A lean, local-only skeleton for AI instruction-sheet apps. No API keys, no server, no AI inside the app.</p>
+      </section>
+
+      <h2 class="section-title">Pick an app</h2>
+      <ul class="apps">
+        <li class="card app-card">
+          <h3>Pack Player</h3>
+          <p>Import a listening pack and play it back with the browser's built-in text-to-speech.</p>
+          <p class="links">
+            <a class="btn btn-primary" href="apps/player/">Open the app</a>
+            <a href="https://github.com/RazWeb3/instruction-sheet-skeleton/blob/main/instructions/player.md">Instruction sheet</a>
+          </p>
+          <div class="url-note">
+            <p>Paste this URL into your AI chat:</p>
+            <code>https://raw.githubusercontent.com/RazWeb3/instruction-sheet-skeleton/main/instructions/player.md</code>
+          </div>
+        </li>
+        <li class="card app-card">
+          <h3>Memory Board</h3>
+          <p>Import a memory board and browse it as cards, filtered by tag.</p>
+          <p class="links">
+            <a class="btn btn-primary" href="apps/board/">Open the app</a>
+            <a href="https://github.com/RazWeb3/instruction-sheet-skeleton/blob/main/instructions/board.md">Instruction sheet</a>
+          </p>
+          <div class="url-note">
+            <p>Paste this URL into your AI chat:</p>
+            <code>https://raw.githubusercontent.com/RazWeb3/instruction-sheet-skeleton/main/instructions/board.md</code>
+          </div>
+        </li>
+      </ul>
+
+      <h2 class="section-title">How it works</h2>
+      <ol class="steps">
+        <li><strong>Instruction sheet</strong><span>A public Markdown sheet describes the data format.</span></li>
+        <li><strong>Your AI chat</strong><span>Your own AI follows the sheet and writes the JSON.</span></li>
+        <li><strong>Import link</strong><span>The AI returns a link carrying the data.</span></li>
+        <li><strong>Local app</strong><span>The app validates it and stores it in your browser.</span></li>
+      </ol>
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="shell">
+      <a href="https://github.com/RazWeb3/instruction-sheet-skeleton">Source on GitHub</a> · MIT License
+    </div>
   </footer>
 </body>
 </html>

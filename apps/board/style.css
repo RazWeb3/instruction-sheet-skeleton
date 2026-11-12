@@ -1,10 +1,13 @@
 /* Memory Board specifics. Shared look lives in /theme.css. */
-main > button:first-child { margin-bottom: 0.5rem; }
-.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 1.25rem; }
-.tags button { border-radius: 999px; min-height: 2.5rem; padding: 0.3rem 1rem; }
-.tags button[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
-.cards { list-style: none; padding: 0; margin: 0; }
-.card { border: 1px solid var(--bone-dark); border-left: 8px solid var(--accent); background: #fff; border-radius: var(--radius); padding: 1rem 1.25rem; margin: 0.9rem 0; box-shadow: var(--shadow); }
-.card h3 { margin: 0 0 0.4rem; font-size: 1.15rem; color: var(--ink); text-transform: none; letter-spacing: 0; }
-.card p { margin: 0.3rem 0 0.6rem; }
-.card .tag { display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--accent); background: #e8f0f7; border-radius: 999px; padding: 0.1rem 0.7rem; }
+.back { margin-bottom: var(--s2); }
+.tags { display: flex; flex-wrap: wrap; gap: var(--s2); margin: var(--s4) 0 var(--s5); }
+.chip-btn { border-radius: 999px; padding: var(--s1) var(--s4); }
+.chip-btn[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+/* Cards: one column below 640px, two above, three on the widest column. */
+.cards { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: var(--s4); }
+.cards li { min-width: 0; display: flex; }
+.cards .card { width: 100%; border-left: 8px solid var(--accent); }
+.card h3 { margin: 0 0 var(--s2); font-size: 1.15rem; color: var(--ink); text-transform: none; letter-spacing: 0; }
+.card p { margin: var(--s1) 0 var(--s3); }
+@media (min-width: 40rem) { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 64rem) { .cards { grid-template-columns: repeat(3, 1fr); } }

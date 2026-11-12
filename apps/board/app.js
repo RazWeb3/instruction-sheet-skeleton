@@ -97,7 +97,7 @@ async function showDetail(id) {
     cardList.replaceChildren(
       ...filterByTag(sorted, activeTag).map((c) => {
         const card = h('article', { class: 'card' }, h('h3', {}, c.heading), h('p', {}, c.body));
-        if (c.tag) card.append(h('span', { class: 'tag' }, c.tag));
+        if (c.tag) card.append(h('span', { class: 'tag chip' }, c.tag));
         return h('li', {}, card);
       }),
     );
@@ -106,7 +106,7 @@ async function showDetail(id) {
     }
   }
   for (const tag of [null, ...tags]) {
-    const btn = h('button', { type: 'button', 'aria-pressed': 'false' }, tag ?? 'all');
+    const btn = h('button', { type: 'button', class: 'chip-btn', 'aria-pressed': 'false' }, tag ?? 'all');
     if (tag !== null) btn.dataset.tag = tag;
     btn.addEventListener('click', () => {
       activeTag = tag;
@@ -116,7 +116,7 @@ async function showDetail(id) {
   }
   renderCards();
 
-  const back = h('button', { type: 'button' }, 'Back');
+  const back = h('button', { type: 'button', class: 'back' }, 'Back');
   back.addEventListener('click', showList);
 
   const memoOut = h('div', {});
@@ -136,7 +136,7 @@ async function showDetail(id) {
     memoOut.replaceChildren(area, copy);
   });
 
-  main.append(back, h('h2', {}, board.title), tagRow, cardList, h('footer', {}, exportBtn, memoOut));
+  main.append(back, h('h2', {}, board.title), tagRow, cardList, h('section', { class: 'memo-panel' }, exportBtn, memoOut));
 }
 
 // ---- Start ----

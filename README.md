@@ -28,7 +28,7 @@ Re-importing data with the same title **replaces** the existing entry — there 
 
 ## What's in this repo
 
-- `index.html` and `theme.css` — the landing page and the shared skeleton theme (plain CSS, no frameworks).
+- `index.html`, `landing.css` and `theme.css` — the landing page and the shared design system (tokens, shell, components) (plain CSS, no frameworks).
 - `core/` — the skeleton: import-link codec, schema validation, local storage, shared UI parts. Nothing else.
 - `apps/player/` — **Pack Player**: imports a listening pack and plays it back with the browser's built-in text-to-speech.
 - `apps/board/` — **Memory Board**: imports a memory board and displays it as cards with tag filtering.

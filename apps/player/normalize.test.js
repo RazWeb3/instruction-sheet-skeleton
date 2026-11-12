@@ -31,6 +31,9 @@ test('tts.text / tts.textLanguage become speak text / lang; audio fields are dro
   assert.ok(!JSON.stringify(n).includes('audio'));
 });
 
+test('normalized pack carries source: "document"', () => {
+  assert.equal(normalizeDocumentPack(pack()).source, 'document');
+});
 test('normalized output is a valid listening-pack', () => {
   assert.equal(validatePayload(normalizeDocumentPack(pack())).ok, true);
 });
