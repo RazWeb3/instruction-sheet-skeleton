@@ -24,7 +24,9 @@ and validation can be unit-tested in Node with `node --test`.
     `{ heading, items: [{ text (required), meaning?, note? }] }`.
   - `memory-board` v1: `title` string (required); `cards` array of
     `{ heading (required), body (required), tag?, updatedAt? }`.
-- Returns a list of reasons on failure; never throws for bad data.
+- Return shape (decided 2026-11-12 during implementation): success is
+  `{ ok: true, type, schemaVersion, data }`, failure is
+  `{ ok: false, reasons: [...] }`. Never throws for bad data.
 - Unknown `type` or unsupported `schemaVersion` is a rejection, not a
   fallback to "best effort".
 
