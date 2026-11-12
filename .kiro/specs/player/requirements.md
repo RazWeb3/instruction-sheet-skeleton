@@ -60,3 +60,21 @@ as plain text.
    the open pack (title, sections, items) that can be pasted into an AI chat.
 2. WHEN the memo is produced THEN it SHALL NOT include anything the user
    did not enter or import.
+
+### Requirement 5 — Sokqa document-pack compatibility
+
+**User Story:** As a Sokqa user, I can open a Sokqa learning pack in the
+web player to check it before importing it into the app.
+
+#### Acceptance Criteria
+
+1. WHEN a payload has `type: "document"` and `schemaVersion: 1` THEN the
+   app SHALL accept it if it matches the Sokqa document-pack schema in
+   the design doc (title and language required; documents non-empty;
+   each document has an id and text).
+2. WHEN a document has `tts.text` THEN playback SHALL speak `tts.text`;
+   WHEN it has no `tts.text` THEN playback SHALL speak the document text.
+3. WHEN a document carries `tts.audioUrl` or `tts.audioPath` THEN the app
+   SHALL ignore them (the web player is TTS-only).
+4. WHEN a document pack is imported THEN it SHALL appear in the list and
+   detail views like a listening pack, one section per document.
