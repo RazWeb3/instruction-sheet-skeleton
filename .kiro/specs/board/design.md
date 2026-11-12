@@ -32,7 +32,8 @@ go back to the AI chat via the exported memo).
 ## Layout (single screen)
 
 - Header: app title.
-- List view: imported boards (title + card count). Empty state from
+- List view: imported boards (title only; no card count, matching
+  Requirement 2.1). Empty state from
   `core/ui.js` when there are none, with the sample-import button.
 - Detail view: tag filter row (all tags present on the board + "all"),
   then cards sorted by `updatedAt` descending (missing `updatedAt` last).

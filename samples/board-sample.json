@@ -1,0 +1,35 @@
+{
+  "type": "memory-board",
+  "schemaVersion": 1,
+  "title": "About Aki (sample)",
+  "cards": [
+    {
+      "heading": "Morning routine",
+      "body": "Starts the day with a walk and a glass of water.",
+      "tag": "habit",
+      "updatedAt": "2026-11-11T00:00:00Z"
+    },
+    {
+      "heading": "Favorite breakfast",
+      "body": "Toast with plum jam and green tea.",
+      "tag": "food",
+      "updatedAt": "2026-10-02T00:00:00Z"
+    },
+    {
+      "heading": "Evening reading",
+      "body": "Reads one chapter of a mystery novel before bed.",
+      "tag": "habit",
+      "updatedAt": "2026-09-15T00:00:00Z"
+    },
+    {
+      "heading": "Weekend hobby",
+      "body": "Grows herbs on the balcony: basil, mint and shiso.",
+      "tag": "hobby",
+      "updatedAt": "2026-08-20T00:00:00Z"
+    },
+    {
+      "heading": "Dream trip",
+      "body": "Wants to visit Kyoto in autumn someday."
+    }
+  ]
+}
