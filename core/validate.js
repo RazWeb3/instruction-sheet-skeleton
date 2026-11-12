@@ -3,6 +3,7 @@
 const SUPPORTED = {
   'listening-pack': [1],
   'memory-board': [1],
+  document: [1],
 };
 
 const isObject = (v) => typeof v === 'object' && v !== null && !Array.isArray(v);
@@ -51,7 +52,29 @@ function checkMemoryBoard(p, reasons) {
   });
 }
 
+// Sokqa document pack. Extra top-level fields (packMode, globalTags, ...) are allowed and ignored.
+function checkDocument(p, reasons) {
+  if (!isText(p.title)) reasons.push('title is required (non-empty string)');
+  if (!isText(p.language)) reasons.push('language is required (non-empty string)');
+  if (!Array.isArray(p.documents) || p.documents.length === 0) {
+    reasons.push('documents is required (non-empty array)');
+    return;
+  }
+  p.documents.forEach((d, i) => {
+    const dp = `documents[${i}]`;
+    if (!isObject(d)) return reasons.push(`${dp} must be an object`);
+    if (!isText(d.id)) reasons.push(`${dp}.id is required (non-empty string)`);
+    if (!isText(d.text)) reasons.push(`${dp}.text is required (non-empty string)`);
+    if (d.tts === undefined) return;
+    if (!isObject(d.tts)) return reasons.push(`${dp}.tts must be an object when present`);
+    for (const key of ['text', 'textLanguage', 'audioUrl', 'audioPath']) {
+      optionalString(d.tts, key, `${dp}.tts`, reasons);
+    }
+  });
+}
+
 const CHECKS = {
+  document: checkDocument,
   'listening-pack': checkListeningPack,
   'memory-board': checkMemoryBoard,
 };
