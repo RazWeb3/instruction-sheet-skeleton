@@ -12,6 +12,8 @@ export function splitDocument(text) {
   const lines = full.split(/\r\n|\r|\n/);
   const first = lines.findIndex((line) => line.trim() !== '');
   if (first === -1) return { heading: null, body: full };
+  // Exactly one non-empty line: it is body text, not a heading-only block.
+  if (lines.filter((l) => l.trim() !== '').length === 1) return { heading: null, body: lines[first].trim() };
   const line = lines[first].trim();
   if (line.length > HEADING_MAX) return { heading: null, body: full };
   const rest = lines.slice(first + 1);

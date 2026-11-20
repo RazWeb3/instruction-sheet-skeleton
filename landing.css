@@ -2,14 +2,16 @@
 .hero { text-align: center; padding: var(--s7) 0 var(--s5); }
 .hero .mark { font-size: 3rem; line-height: 1; margin: 0 0 var(--s3); color: var(--ink-soft); }
 .hero .eyebrow { font-size: var(--fs-small); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 var(--s3); }
-.hero h1 { font-size: 2.75rem; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 var(--s4); }
-.hero .pitch { font-size: 1.3rem; line-height: 1.45; max-width: 34rem; margin: 0 auto var(--s4); }
+.hero h1 { font-size: calc(var(--fs-title) * 1.9); line-height: 1.08; letter-spacing: -0.025em; margin: 0 0 var(--s4); }
+.hero .pitch { font-size: 1.3rem; line-height: 1.45; max-width: 34rem; margin: 0 auto var(--s5); }
+.hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s3); margin: 0 auto var(--s5); }
+.hero-actions .btn { min-height: 3.25rem; padding-inline: var(--s5); font-size: 1.05rem; box-shadow: var(--shadow-2); }
 .hero .sub { color: var(--ink-soft); max-width: 36rem; margin: 0 auto; }
 .section-title { text-align: center; margin: var(--s7) 0 var(--s5); }
 
 .apps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: var(--s5); }
-.app-card { display: flex; flex-direction: column; border-top: 8px solid var(--accent); padding: var(--s5); }
-.app-card h3 { font-size: 1.4rem; margin: 0 0 var(--s2); color: var(--ink); text-transform: none; letter-spacing: -0.005em; }
+.app-card { display: flex; flex-direction: column; border-top: 8px solid var(--accent); padding: var(--s5) var(--s5) var(--s4); box-shadow: var(--shadow-3); }
+.app-card h3 { font-size: 1.6rem; margin: 0 0 var(--s2); color: var(--ink); text-transform: none; letter-spacing: -0.005em; }
 .app-card p { margin: var(--s2) 0 var(--s4); }
 .app-card .links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5); margin: auto 0 0; }
 .app-card .links a:not(.btn) { display: inline-flex; align-items: center; min-height: 2.75rem; }
@@ -32,7 +34,8 @@ code { display: block; background: var(--bone); padding: var(--s2) var(--s3); bo
 }
 @media (max-width: 30rem) {
   .hero { padding-top: var(--s6); }
-  .hero h1 { font-size: 2.1rem; }
+  .hero h1 { font-size: 2.3rem; }
+  .hero-actions .btn { flex: 1 1 100%; }
   .hero .pitch { font-size: 1.15rem; }
   .app-card { padding: var(--s4); }
 }
