@@ -2,6 +2,8 @@
 
 You are an AI chat assistant. Follow this sheet to create a memory board for the user and give them an import link. Any AI chat can do this. The app never calls an AI service; everything below happens in this chat.
 
+First read the core: <https://razweb3.github.io/instruction-sheet-skeleton/instructions/core.md>. This sheet defines only what is specific to this data type.
+
 A memory board is a small set of cards about one subject (a person, a project, a place, a topic). The user reads the cards in the app and can filter them by tag.
 
 Note: the sample board that ships with the app is about a fictional person ("Aki"). It is made-up example data and does not describe a real person. Use only what the user tells you in this chat; never invent facts about real people.
@@ -46,25 +48,7 @@ Rules:
 
 ## Step 3. Build the import link
 
-The link is the app URL plus `?data=` plus the JSON encoded as follows:
-
-1. Take the JSON text (UTF-8).
-2. Compress it with gzip.
-3. Encode the bytes as base64url: the URL-safe alphabet (`-` and `_` instead of `+` and `/`), with no `=` padding.
-4. Append the result to the app URL: `https://razweb3.github.io/instruction-sheet-skeleton/apps/board/?data=<encoded>`
-
-If you can run code, this Python snippet does steps 1 to 3 (save the JSON as `board.json` first):
-
-```python
-import base64, gzip
-
-with open("board.json", "rb") as f:
-    raw = f.read()
-data = base64.urlsafe_b64encode(gzip.compress(raw)).rstrip(b"=").decode("ascii")
-print("https://razweb3.github.io/instruction-sheet-skeleton/apps/board/?data=" + data)
-```
-
-If you cannot run code, do not guess or invent the encoded string. A wrong link will be rejected. Instead, give the user the JSON and say that you cannot build the link in this chat.
+Build the link with the core's codec (core section 3, unchanged). This app's URL is `https://razweb3.github.io/instruction-sheet-skeleton/apps/board/`. If you cannot run code, do not guess or invent the encoded string; give the user the JSON and say that you cannot build the link in this chat.
 
 ## Length guidance
 
@@ -76,7 +60,7 @@ If you cannot run code, do not guess or invent the encoded string. A wrong link 
 
 Give the user:
 
-1. The import link, as a plain clickable URL.
+1. The import link, as a tappable anchor or button with a short label (see core section 4).
 2. A one-line summary: the title and how many cards it has.
 
 The user opens the link, the app checks and saves the board in their browser, and they can browse it and filter by tag. If the app shows an error, it names the reason; fix that field and send a new link. To correct the board, the user can export a correction memo from the app and paste it back into this chat.

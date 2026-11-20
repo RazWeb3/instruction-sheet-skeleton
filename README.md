@@ -2,6 +2,8 @@
 
 A lean, local-only skeleton for **AI instruction-sheet apps** — built with Kiro for [Kiroween 2026](https://kiroween.devpost.com/) (Skeleton Crew category).
 
+**Start here:** [the core instruction sheet](https://razweb3.github.io/instruction-sheet-skeleton/instructions/core.md) is the one document an AI chat reads first; per-type sheets build on it.
+
 ## The pattern
 
 1. A public **instruction sheet** (Markdown) tells the user's own AI chat how to generate data as JSON.
@@ -11,10 +13,10 @@ A lean, local-only skeleton for **AI instruction-sheet apps** — built with Kir
 No API keys. No server. No AI/LLM API inside the app — generation always happens outside the app, in the user's own AI chat.
 
 ## Live
-- Landing page: <https://razweb3.github.io/instruction-sheet-skeleton/>
-- Pack Player: <https://razweb3.github.io/instruction-sheet-skeleton/apps/player/>
-- Memory Board: <https://razweb3.github.io/instruction-sheet-skeleton/apps/board/>
-- Instruction sheets: [player](instructions/player.md) · [board](instructions/board.md)
+- Landing page: [Open the landing page](https://razweb3.github.io/instruction-sheet-skeleton/)
+- Pack Player: [Open Pack Player](https://razweb3.github.io/instruction-sheet-skeleton/apps/player/)
+- Memory Board: [Open Memory Board](https://razweb3.github.io/instruction-sheet-skeleton/apps/board/)
+- Instruction sheets: [core](https://razweb3.github.io/instruction-sheet-skeleton/instructions/core.md) · [player](instructions/player.md) · [board](instructions/board.md)
 - Samples (data and import links): [player JSON](samples/player-sample.json) · [player link](samples/player-sample.link.txt) · [board JSON](samples/board-sample.json) · [board link](samples/board-sample.link.txt)
 ## How it works
 1. Give the raw URL of an instruction sheet to your own AI chat, and describe what you want to learn or remember.
