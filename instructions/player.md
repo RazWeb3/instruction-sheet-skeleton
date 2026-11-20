@@ -36,7 +36,7 @@ Rules:
 - `title` is required, a non-empty string. Importing the same title again replaces the earlier pack.
 - `lang` is optional (default `"en-US"`). It is the language the text is spoken in.
 - `sections` is an array. Each section has a non-empty `heading` and an `items` array.
-- Each item needs `text` (a non-empty string; this is what gets spoken). `meaning` and `note` are optional strings.
+- Each item needs `text` (a non-empty string; this is what gets spoken). `meaning` and `note` are optional strings. `note` is the optional reading / pronunciation line. It is shown under the text and is never spoken. Include it when the audience cannot read the script of `text` (for example, romaji for Japanese phrases aimed at English speakers).
 - Put only speakable text in `text`: no emoji, no markdown, no bracketed notes.
 - Output valid JSON only: double quotes, no comments, no trailing commas.
 

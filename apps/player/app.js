@@ -4,7 +4,7 @@ import { validatePayload } from '../../core/validate.js';
 import * as store from '../../core/store.js';
 import { showNotice, renderEmptyState, renderList } from '../../core/ui.js';
 import { buildMemo } from './memo.js';
-import { normalizeDocumentPack, speechFor } from './normalize.js';
+import { normalizeDocumentPack, speechFor, pickVoice } from './normalize.js';
 import { splitDocument, isDocumentPack } from './document.js';
 import {
   countItems, loadProgress, saveProgress, clearProgress, newRecord, markStarted, markFinished,
@@ -119,6 +119,12 @@ function speak(pack, item, onEnd, onError) {
   const u = new SpeechSynthesisUtterance(text);
   u.lang = lang;
   u.rate = speed();
+  try {
+    const voice = pickVoice(speechSynthesis.getVoices(), lang);
+    if (voice) u.voice = voice;
+  } catch {
+    // leave the voice unset: playback must never depend on voice choice
+  }
   u.onend = onEnd;
   u.onerror = onError;
   speechSynthesis.speak(u);
@@ -247,6 +253,9 @@ function renderListening(pack, rows) {
       const btn = h('button', { type: 'button', class: 'item playable' },
         h('span', { class: 'item-played' }, '\u2713 Played'),
         h('span', { class: 'text' }, item.text));
+      if (typeof item.note === 'string' && item.note.trim() !== '') {
+        btn.append(h('span', { class: 'note' }, item.note));
+      }
       if (item.meaning) btn.append(h('span', { class: 'meaning' }, item.meaning));
       btn.addEventListener('click', () => playFrom(index, false));
       rows.push({ item, node: btn });
