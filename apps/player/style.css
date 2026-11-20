@@ -1,19 +1,60 @@
 /* Pack Player specifics. Shared look lives in /theme.css. */
 .back { margin-bottom: var(--s2); }
-.pack-title { margin-top: var(--s3); }
+.pack-title { margin-top: var(--s3); font-size: var(--fs-title); letter-spacing: -0.01em; }
+.playbar [hidden] { display: none; }
+
+/* One gap rhythm for list rows, listening items and document blocks. */
+.entry-list li { margin: var(--s4) 0; }
 .items { list-style: none; padding: 0; margin: 0; }
-.items li { margin: var(--s2) 0; }
-.item { padding: var(--s3) var(--s4); scroll-margin-top: 6rem; }
+.items li { margin: var(--s4) 0; }
+.item { padding: var(--s3) var(--s4); scroll-margin-top: 6rem; line-height: 1.5; }
 .item .text { font-size: 1.1rem; }
-.item .meaning { display: block; color: var(--ink-soft); font-weight: 400; font-size: 0.95rem; }
+.item .meaning { display: block; color: var(--ink-soft); font-weight: 400; font-size: 0.95rem; line-height: 1.5; }
 .item.playing .text { font-weight: 700; }
 .item.playing .meaning { color: #3d3200; }
 
 /* Document view: one block per document. */
 .docs { display: grid; gap: var(--s4); }
-.doc-block { padding: var(--s4) var(--s5); scroll-margin-top: 6rem; }
-.doc-heading { display: block; font-size: 1.2rem; font-weight: 700; line-height: 1.3; margin-bottom: var(--s2); }
-.doc-body { display: block; font-weight: 400; white-space: pre-wrap; }
+.doc-block { padding: var(--s5); scroll-margin-top: 6rem; }
+.doc-heading { display: block; font-size: 1.3rem; font-weight: 700; line-height: 1.3; margin-bottom: var(--s2); }
+.doc-body { display: block; font-weight: 400; line-height: 1.65; white-space: pre-wrap; }
 .doc-play { display: block; margin-top: var(--s3); font-size: var(--fs-small); font-weight: 600; color: var(--accent); }
 .doc-block.playing .doc-play { color: var(--playing-ink); }
 .doc-block.playing .doc-heading { color: var(--playing-ink); }
+.doc-meta { display: flex; align-items: baseline; gap: var(--s3); margin-bottom: var(--s1); font-size: var(--fs-small); }
+.doc-section { font-weight: 600; letter-spacing: 0.04em; color: var(--ink-soft); }
+.doc-block.playing .doc-section { color: var(--playing-ink); }
+
+/* Playing state: pale tint, carried by a strong left edge and bold text rather than a loud fill. */
+.playable.playing {
+  box-shadow: inset 4px 0 0 var(--accent), 0 0 0 2px var(--playing-edge), var(--shadow-3);
+}
+
+/* ---- List: per-pack progress and Resume button ---- */
+.entry-list li { flex-wrap: wrap; align-items: center; }
+.entry-resume { flex: 0 0 auto; }
+.pack-progress { flex: 0 0 100%; display: flex; align-items: center; gap: var(--s3); }
+.progress-bar { flex: 1; height: 6px; background: var(--bone-dark); border-radius: 999px; overflow: hidden; }
+.progress-fill { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+.progress-text { font-size: var(--fs-small); font-weight: 600; color: var(--accent); white-space: nowrap; }
+.progress-text.is-finished { color: var(--ink-soft); font-weight: 400; }
+
+/* ---- Detail: playback bar additions ---- */
+.playbar { gap: var(--s2); }
+.playbar .toggle, .playbar .resume { padding-inline: var(--s3); }
+.playbar .toggle[aria-pressed="true"] {
+  color: var(--accent);
+  background: var(--accent-tint);
+  border-color: var(--accent);
+}
+.playbar .toggle[aria-pressed="true"]:hover { background: var(--accent-tint); border-color: var(--accent-dark); }
+.keys-hint { margin: calc(var(--s2) * -1) 0 var(--s4); font-size: var(--fs-small); color: var(--ink-soft); }
+
+/* ---- Detail: played blocks (the playing block keeps its own treatment) ---- */
+.doc-played, .item-played { display: none; font-size: var(--fs-small); font-weight: 600; color: var(--accent); }
+.played:not(.playing) .doc-played { display: inline; }
+.played:not(.playing) .item-played { display: block; margin-bottom: var(--s1); }
+.doc-block.played:not(.playing) .doc-heading,
+.doc-block.played:not(.playing) .doc-body,
+.item.played:not(.playing) .text,
+.item.played:not(.playing) .meaning { color: var(--ink-soft); }

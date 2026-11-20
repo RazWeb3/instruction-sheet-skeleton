@@ -21,8 +21,8 @@ test('long first line: no heading, full text kept as the body', () => {
   assert.deepEqual(splitDocument(text), { heading: null, body: text });
 });
 
-test('single short line: it is the heading and the body is empty', () => {
-  assert.deepEqual(splitDocument('Merci beaucoup'), { heading: 'Merci beaucoup', body: '' });
+test('single short line: no heading, the line is the body', () => {
+  assert.deepEqual(splitDocument('Merci beaucoup'), { heading: null, body: 'Merci beaucoup' });
 });
 
 test('single long line: no heading, full text', () => {
