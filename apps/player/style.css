@@ -9,6 +9,7 @@
 .items li { margin: var(--s4) 0; }
 .item { padding: var(--s3) var(--s4); scroll-margin-top: 6rem; line-height: 1.5; }
 .item .text { font-size: 1.1rem; }
+.item .note { display: block; color: var(--ink-soft); font-weight: 400; font-size: 1rem; }
 .item .meaning { display: block; color: var(--ink-soft); font-weight: 400; font-size: 0.95rem; line-height: 1.5; }
 .item.playing .text { font-weight: 700; }
 .item.playing .meaning { color: #3d3200; }
@@ -38,6 +39,7 @@
 .progress-fill { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
 .progress-text { font-size: var(--fs-small); font-weight: 600; color: var(--accent); white-space: nowrap; }
 .progress-text.is-finished { color: var(--ink-soft); font-weight: 400; }
+.progress-text.is-unstarted { color: var(--ink-soft); font-weight: 400; }
 
 /* ---- Detail: playback bar additions ---- */
 .playbar { gap: var(--s2); }

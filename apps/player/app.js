@@ -4,7 +4,7 @@ import { validatePayload } from '../../core/validate.js';
 import * as store from '../../core/store.js';
 import { showNotice, renderEmptyState, renderList } from '../../core/ui.js';
 import { buildMemo } from './memo.js';
-import { normalizeDocumentPack, speechFor } from './normalize.js';
+import { normalizeDocumentPack, speechFor, pickVoice } from './normalize.js';
 import { splitDocument, isDocumentPack } from './document.js';
 import {
   countItems, loadProgress, saveProgress, clearProgress, newRecord, markStarted, markFinished,
@@ -119,6 +119,12 @@ function speak(pack, item, onEnd, onError) {
   const u = new SpeechSynthesisUtterance(text);
   u.lang = lang;
   u.rate = speed();
+  try {
+    const voice = pickVoice(speechSynthesis.getVoices(), lang);
+    if (voice) u.voice = voice;
+  } catch {
+    // leave the voice unset: playback must never depend on voice choice
+  }
   u.onend = onEnd;
   u.onerror = onError;
   speechSynthesis.speak(u);
@@ -213,14 +219,17 @@ async function showList() {
   main.append(h('h2', {}, 'Your packs'), list);
 }
 
-// Progress under a list row (and a Resume button) for packs that have a progress record.
+// Progress under a list row. Packs with a progress record get it (plus Resume when resumable);
+// packs without one show an empty bar and "Item 0 of N" / "Section 0 of N", no Resume.
 function addProgressRow(li, entry) {
   const count = countItems(entry.payload);
   const rec = reconcile(loadProgress(storage, entry.id), count);
-  if (!rec || count === 0 || !(rec.finished || isResumable(rec))) return;
+  if (count === 0) return;
+  const unstarted = !rec;
+  if (!unstarted && !(rec.finished || isResumable(rec))) return;
   const unit = isDocumentPack(entry.payload) ? 'Section' : 'Item';
-  const done = rec.finished ? count : rec.index + 1;
-  if (isResumable(rec)) {
+  const done = unstarted ? 0 : rec.finished ? count : rec.index + 1;
+  if (!unstarted && isResumable(rec)) {
     const btn = h('button', { type: 'button', class: 'entry-resume', 'aria-label': `Resume ${entry.payload.title}` }, 'Resume');
     btn.addEventListener('click', () => showDetail(entry.id, { resume: true }));
     li.querySelector('.entry-delete')?.before(btn);
@@ -231,8 +240,8 @@ function addProgressRow(li, entry) {
     class: 'progress-bar', role: 'progressbar', 'aria-label': 'Progress',
     'aria-valuemin': '0', 'aria-valuemax': String(count), 'aria-valuenow': String(done),
   }, fill);
-  const text = h('span', { class: rec.finished ? 'progress-text is-finished' : 'progress-text' },
-    rec.finished ? 'Finished' : `${unit} ${done} of ${count}`);
+  const text = h('span', { class: unstarted ? 'progress-text is-unstarted' : rec.finished ? 'progress-text is-finished' : 'progress-text' },
+    !unstarted && rec.finished ? 'Finished' : `${unit} ${done} of ${count}`);
   li.append(h('div', { class: 'pack-progress' }, bar, text));
 }
 
@@ -247,6 +256,9 @@ function renderListening(pack, rows) {
       const btn = h('button', { type: 'button', class: 'item playable' },
         h('span', { class: 'item-played' }, '\u2713 Played'),
         h('span', { class: 'text' }, item.text));
+      if (typeof item.note === 'string' && item.note.trim() !== '') {
+        btn.append(h('span', { class: 'note' }, item.note));
+      }
       if (item.meaning) btn.append(h('span', { class: 'meaning' }, item.meaning));
       btn.addEventListener('click', () => playFrom(index, false));
       rows.push({ item, node: btn });

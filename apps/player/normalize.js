@@ -26,3 +26,14 @@ export function normalizeDocumentPack(pack) {
 export function speechFor(pack, item) {
   return { text: item.speakText ?? item.text, lang: item.speakLang ?? pack.lang ?? 'en-US' };
 }
+
+const primaryTag = (l) => (l || '').toLowerCase().split('-')[0];
+
+/** Pick the preferred voice for a language: Google, then browser default, then first match. Pure. */
+export function pickVoice(voices, lang) {
+  if (!Array.isArray(voices) || !lang) return null;
+  const matches = voices.filter((v) => v && v.lang && primaryTag(v.lang) === primaryTag(lang));
+  const exact = matches.filter((v) => v.lang.toLowerCase() === lang.toLowerCase());
+  const pool = exact.length ? exact : matches;
+  return pool.find((v) => /google/i.test(v.name)) ?? pool.find((v) => v.default) ?? pool[0] ?? null;
+}

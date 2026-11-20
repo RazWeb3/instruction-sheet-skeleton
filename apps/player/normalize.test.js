@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeDocumentPack, speechFor } from './normalize.js';
+import { normalizeDocumentPack, speechFor, pickVoice } from './normalize.js';
 import { validatePayload } from '../../core/validate.js';
 
 const pack = () => ({
@@ -43,4 +43,31 @@ test('speechFor: speak text wins, falls back to display text and pack lang', () 
   assert.deepEqual(speechFor(n, n.sections[0].items[0]), { text: 'Bonjour', lang: 'fr-FR' });
   assert.deepEqual(speechFor(n, n.sections[1].items[0]), { text: 'Un café', lang: 'fr-CA' });
   assert.deepEqual(speechFor({ title: 'x' }, { text: 'a' }), { text: 'a', lang: 'en-US' });
+});
+
+const voice = (name, lang, def = false) => ({ name, lang, default: def });
+
+test('pickVoice prefers a Google voice', () => {
+  const v = [voice('Microsoft Haruka', 'ja-JP', true), voice('Google Japanese', 'ja-JP')];
+  assert.equal(pickVoice(v, 'ja-JP').name, 'Google Japanese');
+});
+
+test('pickVoice falls back to the default voice, then the first match', () => {
+  const a = [voice('A', 'en-US'), voice('B', 'en-US', true)];
+  assert.equal(pickVoice(a, 'en-US').name, 'B');
+  const b = [voice('A', 'en-US'), voice('B', 'en-US')];
+  assert.equal(pickVoice(b, 'en-US').name, 'A');
+});
+
+test('pickVoice matches on the primary subtag and prefers an exact match', () => {
+  const v = [voice('Google UK English', 'en-GB'), voice('Plain US', 'en-US')];
+  assert.equal(pickVoice(v, 'en-US').name, 'Plain US');
+  assert.equal(pickVoice(v, 'en-AU').name, 'Google UK English');
+  assert.equal(pickVoice([voice('Plain US', 'en-US')], 'en').name, 'Plain US');
+});
+
+test('pickVoice returns null for no match or an empty list', () => {
+  assert.equal(pickVoice([voice('A', 'fr-FR')], 'ja-JP'), null);
+  assert.equal(pickVoice([], 'en-US'), null);
+  assert.equal(pickVoice(undefined, 'en-US'), null);
 });
